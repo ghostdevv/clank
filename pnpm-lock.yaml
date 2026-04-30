@@ -16,8 +16,8 @@ importers:
         specifier: ^0.4.1
         version: 0.4.1(oxlint@1.62.0(oxlint-tsgolint@0.22.1))
       '@rlly/pedantic':
-        specifier: ^0.2.0
-        version: 0.2.0(@e18e/eslint-plugin@0.4.1(oxlint@1.62.0(oxlint-tsgolint@0.22.1)))(oxlint-tsgolint@0.22.1)(oxlint@1.62.0(oxlint-tsgolint@0.22.1))
+        specifier: ^0.3.0
+        version: 0.3.0(@e18e/eslint-plugin@0.4.1(oxlint@1.62.0(oxlint-tsgolint@0.22.1)))(oxlint-tsgolint@0.22.1)(oxlint@1.62.0(oxlint-tsgolint@0.22.1))
       '@types/node':
         specifier: ^25.6.0
         version: 25.6.0
@@ -654,13 +654,13 @@ packages:
   '@protobufjs/utf8@1.1.1':
     resolution: {integrity: sha512-oOAWABowe8EAbMyWKM0tYDKi8Yaox52D+HWZhAIJqQXbqe0xI/GV7FhLWqlEKreMkfDjshR5FKgi3mnle0h6Eg==}
 
-  '@rlly/pedantic@0.2.0':
-    resolution: {integrity: sha512-v8dozpMr9oYkBO8+axmbGi/fwmLJzY9b9Y13U+DoAxw/7gogJrvdQ7iTIQr2JrWpAgBhxdD5F0ZMwrzWN05HUQ==}
+  '@rlly/pedantic@0.3.0':
+    resolution: {integrity: sha512-tQV4MtQGTqAzyXNIi1mRMcRCmVlfq7ra0Z/tHoUoev/5omKYhsgjGpP6jaZ36/L+X+w6VDEZjRUbtdGm8YjAvA==}
     engines: {node: ^24.0.0}
     peerDependencies:
-      '@e18e/eslint-plugin': ^0.2.0
-      oxlint: ^1.43.0
-      oxlint-tsgolint: ^0.11.4
+      '@e18e/eslint-plugin': ^0.4.1
+      oxlint: ^1.62.0
+      oxlint-tsgolint: ^0.22.1
     peerDependenciesMeta:
       '@e18e/eslint-plugin':
         optional: true
@@ -2212,7 +2212,7 @@ snapshots:
 
   '@protobufjs/utf8@1.1.1': {}
 
-  '@rlly/pedantic@0.2.0(@e18e/eslint-plugin@0.4.1(oxlint@1.62.0(oxlint-tsgolint@0.22.1)))(oxlint-tsgolint@0.22.1)(oxlint@1.62.0(oxlint-tsgolint@0.22.1))':
+  '@rlly/pedantic@0.3.0(@e18e/eslint-plugin@0.4.1(oxlint@1.62.0(oxlint-tsgolint@0.22.1)))(oxlint-tsgolint@0.22.1)(oxlint@1.62.0(oxlint-tsgolint@0.22.1))':
     dependencies:
       oxlint: 1.62.0(oxlint-tsgolint@0.22.1)
     optionalDependencies:
