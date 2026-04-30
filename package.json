@@ -5,7 +5,8 @@
 	"type": "module",
 	"scripts": {
 		"lint": "prettier --check . && oxlint --type-aware && tsc --noEmit",
-		"fix": "prettier --write . && oxlint --type-aware --fix"
+		"fix": "prettier --write . && oxlint --type-aware --fix",
+		"start": "pi --no-extensions --extension ."
 	},
 	"pi": {
 		"extensions": [
