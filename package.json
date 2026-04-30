@@ -6,11 +6,14 @@
 	"scripts": {
 		"lint": "prettier --check . && oxlint --type-aware && tsc --noEmit",
 		"fix": "prettier --write . && oxlint --type-aware --fix",
-		"start": "pi --no-extensions --extension ."
+		"start": "pi --no-extensions --no-themes --extension ."
 	},
 	"pi": {
 		"extensions": [
 			"./src/extensions"
+		],
+		"themes": [
+			"./src/themes"
 		]
 	},
 	"peerDependencies": {
