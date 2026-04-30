@@ -16,6 +16,9 @@
 			"./src/themes"
 		]
 	},
+	"dependencies": {
+		"dedent": "^1.7.2"
+	},
 	"peerDependencies": {
 		"@mariozechner/pi-coding-agent": "*"
 	},
