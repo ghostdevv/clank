@@ -23,7 +23,7 @@ function exitMessage(ctx: ExtensionContext) {
 // oxlint-disable-next-line import/no-anonymous-default-export
 export default (pi: ExtensionAPI) => {
 	pi.on('session_shutdown', (event, ctx) => {
-		if (event.reason === 'quit') {
+		if (event.reason === 'quit' && ctx.hasUI) {
 			const sessionFile = ctx.sessionManager.getSessionFile();
 
 			// "Clear" terminal without clearing scrollback
