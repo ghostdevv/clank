@@ -20,7 +20,8 @@
 		"dedent": "^1.7.2"
 	},
 	"peerDependencies": {
-		"@mariozechner/pi-coding-agent": "*"
+		"@mariozechner/pi-coding-agent": "*",
+		"@mariozechner/pi-tui": "*"
 	},
 	"devDependencies": {
 		"@e18e/eslint-plugin": "^0.4.1",
