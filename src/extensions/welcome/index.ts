@@ -12,7 +12,7 @@ const MESSAGE = dedent`
 // oxlint-disable-next-line import/no-anonymous-default-export
 export default (pi: ExtensionAPI) => {
 	pi.on('session_start', (event, ctx) => {
-		if (event.reason === 'startup' && ctx.hasUI) {
+		if (ctx.hasUI) {
 			ctx.ui.setHeader(() => ({
 				render: () => [MESSAGE],
 				// oxlint-disable-next-line no-empty-function
