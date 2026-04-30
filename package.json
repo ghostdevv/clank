@@ -1,0 +1,35 @@
+{
+	"name": "@rlly/clank",
+	"private": true,
+	"version": "0.1.0",
+	"type": "module",
+	"scripts": {
+		"lint": "prettier --check . && oxlint --type-aware && tsc --noEmit",
+		"fix": "prettier --write . && oxlint --type-aware --fix",
+		"start": "tsx src/index.ts",
+		"dev": "tsx src/index.ts"
+	},
+	"pi": {
+		"extensions": [
+			"./src/extensions"
+		]
+	},
+	"peerDependencies": {
+		"@mariozechner/pi-coding-agent": "*"
+	},
+	"devDependencies": {
+		"@e18e/eslint-plugin": "^0.4.1",
+		"@rlly/pedantic": "^0.2.0",
+		"@types/node": "^25.6.0",
+		"oxlint": "^1.62.0",
+		"oxlint-tsgolint": "^0.22.1",
+		"prettier": "^3.8.3",
+		"tsx": "latest",
+		"typescript": "^6.0.3"
+	},
+	"packageManager": "pnpm@11.0.1",
+	"volta": {
+		"node": "24.15.0",
+		"pnpm": "11.0.1"
+	}
+}
