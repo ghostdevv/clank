@@ -5,9 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"lint": "prettier --check . && oxlint --type-aware && tsc --noEmit",
-		"fix": "prettier --write . && oxlint --type-aware --fix",
-		"start": "tsx src/index.ts",
-		"dev": "tsx src/index.ts"
+		"fix": "prettier --write . && oxlint --type-aware --fix"
 	},
 	"pi": {
 		"extensions": [
@@ -24,7 +22,6 @@
 		"oxlint": "^1.62.0",
 		"oxlint-tsgolint": "^0.22.1",
 		"prettier": "^3.8.3",
-		"tsx": "latest",
 		"typescript": "^6.0.3"
 	},
 	"packageManager": "pnpm@11.0.1",
