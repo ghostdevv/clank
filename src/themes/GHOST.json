@@ -14,8 +14,7 @@
 		"green": "#67c157",
 		"greenMuted": "#419732",
 		"red": "#f26c4b",
-		"redMuted": "#c04c2f",
-		"verticalLine": "#2160ec"
+		"redMuted": "#c04c2f"
 	},
 	"colors": {
 		"accent": "primary",
@@ -57,7 +56,7 @@
 		"toolDiffRemoved": "red",
 		"toolDiffContext": "textGrey",
 
-		"syntaxComment": "textGrey",
+		"syntaxComment": "text",
 		"syntaxKeyword": "primary",
 		"syntaxFunction": "green",
 		"syntaxVariable": "orange",
