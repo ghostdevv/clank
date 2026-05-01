@@ -7,14 +7,13 @@
 		"strict": true,
 		"moduleResolution": "bundler",
 		"allowSyntheticDefaultImports": true,
-		"erasableSyntaxOnly": true,
 		"verbatimModuleSyntax": true,
 		"isolatedModules": true,
 		"lib": ["esnext"],
 		"module": "esnext",
 		"noEmit": true,
-		"target": "esnext"
+		"target": "esnext",
 	},
 	"include": ["./src/**/*.ts", "./test/**/*.ts"],
-	"exclude": ["./node_modules/**"]
+	"exclude": ["./node_modules/**"],
 }
