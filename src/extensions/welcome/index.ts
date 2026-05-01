@@ -1,4 +1,5 @@
 import type { ExtensionAPI } from '@mariozechner/pi-coding-agent';
+import { Text } from '@mariozechner/pi-tui';
 import { styleText } from 'node:util';
 import { LOGO } from '../../logo';
 import dedent from 'dedent';
@@ -13,11 +14,7 @@ const MESSAGE = dedent`
 export default (pi: ExtensionAPI) => {
 	pi.on('session_start', (event, ctx) => {
 		if (ctx.hasUI) {
-			ctx.ui.setHeader(() => ({
-				render: () => [MESSAGE],
-				// oxlint-disable-next-line no-empty-function
-				invalidate: () => {},
-			}));
+			ctx.ui.setHeader(() => new Text(MESSAGE));
 		}
 	});
 };
