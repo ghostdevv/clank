@@ -1,4 +1,4 @@
-import { getKeybindings } from '@mariozechner/pi-tui';
+import { Text, getKeybindings } from '@mariozechner/pi-tui';
 import { generate } from '../../generate';
 import { styleText } from 'node:util';
 import dedent from 'dedent';
@@ -10,11 +10,37 @@ import {
 	CustomEditor,
 } from '@mariozechner/pi-coding-agent';
 
-const NAME_SESSION_ENTRY_TYPE = 'clank::session-name';
+const SESSION_NAME_ENTRY_TYPE = 'clank::session-name';
 
 interface NameEntryData {
 	name: string;
 	model?: string;
+}
+
+function appendSessionNameMessage(pi: ExtensionAPI, details: NameEntryData) {
+	pi.sendMessage({
+		customType: SESSION_NAME_ENTRY_TYPE,
+		content: `Session name changed to ${details.name}`,
+		display: true,
+		details,
+	});
+}
+
+function hasSessionNameEntry(entries: SessionEntry[]) {
+	return entries.some((e) => {
+		if (e.type === 'custom' && e.customType === SESSION_NAME_ENTRY_TYPE) {
+			return true;
+		}
+
+		if (
+			e.type === 'custom_message' &&
+			e.customType === SESSION_NAME_ENTRY_TYPE
+		) {
+			return true;
+		}
+
+		return false;
+	});
 }
 
 const MODEL_ID = 'local/gemma-4-E4B-it';
@@ -44,6 +70,7 @@ function findModel(ctx: ExtensionContext) {
 	const [provider, modelId] = MODEL_ID.split('/');
 
 	if (provider && modelId) {
+		// oxlint-disable-next-line unicorn/no-array-method-this-argument: false positive
 		const model = ctx.modelRegistry.find(provider, modelId);
 		if (model) return model;
 	}
@@ -109,16 +136,26 @@ async function generateSessionName(
 
 	pi.setSessionName(name);
 
-	pi.appendEntry<NameEntryData>(NAME_SESSION_ENTRY_TYPE, {
+	appendSessionNameMessage(pi, {
+		name,
 		model: `${model.provider}/${model.name}`,
-		name: name,
 	});
-
-	ctx.ui.notify(`Session renamed to ${name}`, 'info');
 }
 
 // oxlint-disable-next-line import/no-anonymous-default-export
 export default (pi: ExtensionAPI) => {
+	pi.registerMessageRenderer<NameEntryData>(
+		SESSION_NAME_ENTRY_TYPE,
+		(message, _options, theme) => {
+			const nameText = message.details?.name
+				? styleText('bold', message.details.name)
+				: theme.fg('error', '(unknown)');
+
+			const text = `🏷  Session name changed to ${nameText}`;
+			return new Text(styleText('dim', text), 1, 1);
+		},
+	);
+
 	pi.on('session_start', (_event, ctx) => {
 		ctx.ui.setEditorComponent((tui, theme, keybindings) => {
 			const editor = new Editor(tui, theme, keybindings);
@@ -143,12 +180,7 @@ export default (pi: ExtensionAPI) => {
 
 		const entries = ctx.sessionManager.getEntries();
 
-		const sessionEntryExists = entries.some(
-			(e) =>
-				e.type === 'custom' && e.customType === NAME_SESSION_ENTRY_TYPE,
-		);
-
-		if (sessionEntryExists || generating) {
+		if (hasSessionNameEntry(entries) || generating) {
 			return;
 		}
 
@@ -166,9 +198,7 @@ export default (pi: ExtensionAPI) => {
 
 			if (name) {
 				pi.setSessionName(name);
-				// prettier-ignore
-				pi.appendEntry<NameEntryData>(NAME_SESSION_ENTRY_TYPE, {name});
-				ctx.ui.notify(`Session renamed to ${name}`, 'info');
+				appendSessionNameMessage(pi, { name });
 				return;
 			}
 
