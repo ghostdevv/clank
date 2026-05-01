@@ -74,6 +74,7 @@ export function patchBox(theme: Theme) {
 		return output;
 	};
 }
+
 // oxlint-disable-next-line import/no-anonymous-default-export
 export default (pi: ExtensionAPI) => {
 	pi.on('session_start', (event, ctx: ExtensionContext) => {
