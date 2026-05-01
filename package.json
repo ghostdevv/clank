@@ -20,6 +20,7 @@
 		"dedent": "^1.7.2"
 	},
 	"peerDependencies": {
+		"@mariozechner/pi-ai": "^0.70.6",
 		"@mariozechner/pi-coding-agent": "^0.71.0",
 		"@mariozechner/pi-tui": "^0.71.0"
 	},
