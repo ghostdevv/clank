@@ -185,7 +185,6 @@ export default (pi: ExtensionAPI) => {
 		}
 
 		generating = true;
-		// oxlint-disable-next-line promise/catch-or-return, typescript/no-floating-promises, promise/prefer-await-to-then
 		generateSessionName(pi, ctx, entries).finally(
 			() => (generating = false),
 		);
@@ -212,8 +211,11 @@ export default (pi: ExtensionAPI) => {
 			}
 
 			generating = true;
-			await generateSessionName(pi, ctx, ctx.sessionManager.getEntries());
-			generating = false;
+			generateSessionName(
+				pi,
+				ctx,
+				ctx.sessionManager.getEntries(),
+			).finally(() => (generating = false));
 		},
 	});
 };
