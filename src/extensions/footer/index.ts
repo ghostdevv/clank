@@ -73,27 +73,30 @@ class Footer implements Component {
 		const left = `${cwd}${branch ? `:${branch}` : ''}`;
 		let right = '';
 
-		if (usage.input) {
-			right += ` ⭡${fmt(usage.input, 'u')}`;
-		}
-
-		if (usage.output) {
-			right += ` ⭣${fmt(usage.output, 'u')}`;
-		}
-
-		if (usage.cost) {
-			const sub = model && this.ctx.modelRegistry.isUsingOAuth(model);
-			right += ` $${usage.cost.toFixed(2)}${sub ? ' (sub)' : ''}`;
-		}
-
 		right += theme.fg(
 			usage.ctxPercent && usage.ctxPercent >= 90
 				? 'error'
 				: usage.ctxPercent && usage.ctxPercent >= 80
 					? 'warning'
 					: 'dim',
-			` ${fmt(usage.ctxUsed)}/${fmt(usage.ctxSize)}${usage.ctxPercent ? ` (${fmt(usage.ctxPercent, 'p')})` : ''}`,
+			` ${fmt(usage.ctxPercent, 'p')}${usage.ctxSize ? ` (${fmt(usage.ctxSize)})` : ''}`,
 		);
+
+		right += theme.fg('dim', ' ·');
+
+		if (usage.input) {
+			right += theme.fg('dim', ` ⭡${fmt(usage.input, 'u')}`);
+		}
+
+		if (usage.output) {
+			right += theme.fg('dim', ` ⭣${fmt(usage.output, 'u')}`);
+		}
+
+		if (usage.cost) {
+			const sub = model && this.ctx.modelRegistry.isUsingOAuth(model);
+			// prettier-ignore
+			right += theme.fg('dim', ` $${fmt(usage.cost)}${sub ? ' (sub)' : ''}`);
+		}
 
 		const ellipsis = theme.fg('dim', '...');
 		const lines: string[] = [];
