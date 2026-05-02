@@ -95,14 +95,6 @@ class Footer implements Component {
 			` ${fmt(usage.ctxUsed)}/${fmt(usage.ctxSize)}${usage.ctxPercent ? ` (${fmt(usage.ctxPercent, 'p')})` : ''}`,
 		);
 
-		right += theme.fg('dim', ` · ${model?.provider ?? ''}/`);
-
-		if (model?.name) {
-			right += theme.fg('dim', model.name);
-		} else {
-			right += theme.fg('warning', '(no model)');
-		}
-
 		const ellipsis = theme.fg('dim', '...');
 		const lines: string[] = [];
 
@@ -122,6 +114,8 @@ class Footer implements Component {
 		if (statuses.length) {
 			lines.push(truncateToWidth(statuses, width, ellipsis));
 		}
+
+		lines.unshift(' '.repeat(width));
 
 		return lines;
 	}

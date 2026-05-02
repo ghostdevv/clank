@@ -5,11 +5,21 @@ import type {
 	Theme,
 } from '@mariozechner/pi-coding-agent';
 
-function paintBackground(line: string, width: number, theme: Theme) {
+export function paintBackground(line: string, width: number, theme: Theme) {
 	const visLen = visibleWidth(line);
 	const padNeeded = Math.max(0, width - visLen);
 	const padded = line + ' '.repeat(padNeeded);
-	return theme.bg('selectedBg', padded);
+	const sentinel = '\x00';
+	const [bgOpen, bgClose] = theme.bg('selectedBg', sentinel).split(sentinel);
+	const fullReset = '\x1b[0m';
+	let safeContent = padded.replaceAll(bgClose, `${bgClose}${bgOpen}`);
+	if (bgClose !== fullReset) {
+		safeContent = safeContent.replaceAll(
+			fullReset,
+			`${fullReset}${bgOpen}`,
+		);
+	}
+	return `${bgOpen}${safeContent}${bgClose}`;
 }
 
 export function patchBox(theme: Theme) {

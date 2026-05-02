@@ -1,4 +1,5 @@
-import { Loader, TUI, Text, getKeybindings } from '@mariozechner/pi-tui';
+import { Loader, Text } from '@mariozechner/pi-tui';
+import { randomSpinner } from '../../spinners';
 import { generate } from '../../generate';
 import { styleText } from 'node:util';
 import dedent from 'dedent';
@@ -7,9 +8,7 @@ import {
 	type ExtensionContext,
 	type SessionEntry,
 	type ExtensionAPI,
-	CustomEditor,
 } from '@mariozechner/pi-coding-agent';
-import { randomSpinner } from '../../spinners';
 
 const SESSION_NAME_ENTRY_TYPE = 'clank::session-name';
 const STATUS_WIDGET_ID = 'clank::session-name-status';
@@ -83,24 +82,6 @@ function hasSessionNameEntry(entries: SessionEntry[]) {
 }
 
 const MODEL_ID = 'local/gemma-4-E4B-it';
-
-// Hack to override the default /name command
-// Not ideal and doesn't change the description :/
-class Editor extends CustomEditor {
-	public onNameCommand?: () => void;
-
-	handleInput(data: string) {
-		const isSubmitKey = getKeybindings().matches(data, 'tui.input.submit');
-		if (isSubmitKey && this.getText().startsWith('/name')) {
-			this.setText('');
-			this.onNameCommand?.();
-			this.tui.requestRender();
-			return;
-		}
-
-		super.handleInput(data);
-	}
-}
 
 /**
  * Find the model to use for session name generation.
@@ -199,23 +180,6 @@ export default (pi: ExtensionAPI) => {
 			return new Text(styleText('dim', text), 1, 1);
 		},
 	);
-
-	pi.on('session_start', (_event, ctx) => {
-		ctx.ui.setEditorComponent((tui, theme, keybindings) => {
-			const editor = new Editor(tui, theme, keybindings);
-			editor.onNameCommand = () => {
-				const name = ctx.sessionManager.getSessionName();
-
-				ctx.ui.notify(
-					name
-						? `The session is called ${styleText('bold', name)}`
-						: `The session is unnamed`,
-				);
-			};
-
-			return editor;
-		});
-	});
 
 	let generating = false;
 
