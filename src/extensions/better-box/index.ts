@@ -10,7 +10,9 @@ export function paintBackground(line: string, width: number, theme: Theme) {
 	const padNeeded = Math.max(0, width - visLen);
 	const padded = line + ' '.repeat(padNeeded);
 	const sentinel = '\x00';
-	const [bgOpen, bgClose] = theme.bg('selectedBg', sentinel).split(sentinel);
+	const [bgOpen, bgClose] = theme
+		.bg('customMessageBg', sentinel)
+		.split(sentinel);
 	const fullReset = '\x1b[0m';
 	let safeContent = padded.replaceAll(bgClose, `${bgClose}${bgOpen}`);
 	if (bgClose !== fullReset) {
@@ -36,10 +38,14 @@ export function patchBox(theme: Theme) {
 		// @ts-expect-error private property
 		// oxlint-disable-next-line typescript/no-unsafe-assignment
 		const paintAccent: ((text: string) => string) | undefined = this.bgFn;
+		const accentLeftBar = paintAccent?.('┃');
 
-		const leftBar = paintAccent
-			? paintAccent('┃').replace('48;2;', '38;2;')
-			: theme.bg('customMessageBg', '┃').replace('48;2;', '38;2;');
+		const leftBar =
+			accentLeftBar &&
+			accentLeftBar !== theme.bg('userMessageBg', '┃') &&
+			accentLeftBar !== theme.bg('customMessageBg', '┃')
+				? accentLeftBar.replace('48;2;', '38;2;')
+				: theme.fg('borderAccent', '┃');
 
 		// Full width after leftBar is painted
 		const boxWidth = Math.max(0, width - 1);

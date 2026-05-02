@@ -29,10 +29,10 @@
 		"text": "text",
 		"thinkingText": "textGrey",
 
-		"selectedBg": "bgSecondary",
-		"userMessageBg": "primary",
+		"selectedBg": "secondary",
+		"userMessageBg": "bgSecondary",
 		"userMessageText": "text",
-		"customMessageBg": "secondary",
+		"customMessageBg": "bgTertiary",
 		"customMessageText": "text",
 		"customMessageLabel": "primary",
 		"toolPendingBg": "orange",
