@@ -46,6 +46,10 @@ class Editor extends CustomEditor {
 	}
 
 	render(width: number): string[] {
+		if (this.getPaddingX() !== 2) {
+			this.setPaddingX(2);
+		}
+
 		const theme = this.ctx.ui.theme;
 		const leftBar = theme.fg('accent', '┃');
 
