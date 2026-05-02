@@ -1,10 +1,10 @@
 import type { ExtensionAPI } from '@mariozechner/pi-coding-agent';
-import { SPINNERS } from './spinners';
+import { randomSpinner } from '../../spinners';
 
 // oxlint-disable-next-line import/no-anonymous-default-export
 export default (pi: ExtensionAPI) => {
 	pi.on('turn_start', (_event, ctx) => {
-		const spinner = SPINNERS[Math.floor(Math.random() * SPINNERS.length)];
+		const spinner = randomSpinner();
 
 		ctx.ui.setWorkingMessage(spinner.word);
 

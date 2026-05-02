@@ -1,4 +1,4 @@
-import { Text, getKeybindings } from '@mariozechner/pi-tui';
+import { Loader, TUI, Text, getKeybindings } from '@mariozechner/pi-tui';
 import { generate } from '../../generate';
 import { styleText } from 'node:util';
 import dedent from 'dedent';
@@ -9,8 +9,47 @@ import {
 	type ExtensionAPI,
 	CustomEditor,
 } from '@mariozechner/pi-coding-agent';
+import { randomSpinner } from '../../spinners';
 
 const SESSION_NAME_ENTRY_TYPE = 'clank::session-name';
+const STATUS_WIDGET_ID = 'clank::session-name-status';
+
+class StatusIndicator {
+	private loader: Loader | null = null;
+	private running = false;
+
+	constructor(private readonly ctx: ExtensionContext) {}
+
+	start() {
+		if (this.running) return;
+		this.running = true;
+
+		this.ctx.ui.setWidget(STATUS_WIDGET_ID, (tui) => {
+			const spinner = randomSpinner();
+
+			this.loader ??= new Loader(
+				tui,
+				(str) => this.ctx.ui.theme.fg('muted', str),
+				(str) => this.ctx.ui.theme.fg('muted', str),
+				"Namin'",
+				{ frames: spinner.frames, intervalMs: spinner.interval },
+			);
+
+			this.loader.start();
+			return this.loader;
+		});
+	}
+
+	stop() {
+		this.ctx.ui.setWidget(STATUS_WIDGET_ID, undefined);
+		this.loader?.stop();
+	}
+
+	[Symbol.dispose]() {
+		this.stop();
+		this.loader = null;
+	}
+}
 
 interface NameEntryData {
 	name: string;
@@ -120,6 +159,9 @@ async function generateSessionName(
 	const message = findFirstMessage(entries);
 	if (!message) return;
 
+	using status = new StatusIndicator(ctx);
+	status.start();
+
 	const prompt = dedent`
         You are Clank, built-on Pi, and your task is to generate a short descriptive
         session name (max 50 characters) that captures the main topic or task. Use the
@@ -140,6 +182,8 @@ async function generateSessionName(
 		name,
 		model: `${model.provider}/${model.name}`,
 	});
+
+	status.stop();
 }
 
 // oxlint-disable-next-line import/no-anonymous-default-export

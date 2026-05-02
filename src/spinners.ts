@@ -6,6 +6,10 @@ interface Spinner {
 	frames: string[];
 }
 
+export function randomSpinner() {
+	return SPINNERS[Math.floor(Math.random() * SPINNERS.length)];
+}
+
 // Based on MIT Licensed code from Sindre Sorhus
 // https://github.com/sindresorhus/cli-spinners/blob/82c51d1e9d07e0cf95247479414d52b67d4cf019/license
 // https://github.com/sindresorhus/cli-spinners/blob/82c51d1e9d07e0cf95247479414d52b67d4cf019/spinners.json
