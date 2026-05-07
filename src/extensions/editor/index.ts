@@ -53,9 +53,7 @@ class Editor extends CustomEditor {
 		const theme = this.ctx.ui.theme;
 		const leftBar = theme.fg('accent', '┃');
 
-		const model = this.ctx.model?.name
-			? this.ctx.model.name
-			: theme.fg('warning', '(no model)');
+		const model = this.ctx.model?.name ?? theme.fg('warning', '(no model)');
 
 		const provider = this.ctx.model?.provider
 			? ` ${theme.fg('dim', this.ctx.model.provider)}`
@@ -67,6 +65,7 @@ class Editor extends CustomEditor {
 			.toSpliced(-1, 0, `  ${model}${provider}`)
 			.map((line, index, lines) => {
 				if (index === 0 || index === lines.length - 1) {
+					// oxlint-disable-next-line no-param-reassign
 					line = line.replaceAll('─', ' ');
 				}
 

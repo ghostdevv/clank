@@ -3,11 +3,11 @@ import { randomSpinner } from '../../spinners';
 import { generate } from '../../generate';
 import { styleText } from 'node:util';
 import dedent from 'dedent';
-import {
-	type SessionMessageEntry,
-	type ExtensionContext,
-	type SessionEntry,
-	type ExtensionAPI,
+import type {
+	SessionMessageEntry,
+	ExtensionContext,
+	SessionEntry,
+	ExtensionAPI,
 } from '@mariozechner/pi-coding-agent';
 
 const SESSION_NAME_ENTRY_TYPE = 'clank::session-name';
@@ -40,6 +40,7 @@ class StatusIndicator {
 	}
 
 	stop() {
+		// oxlint-disable-next-line no-undefined
 		this.ctx.ui.setWidget(STATUS_WIDGET_ID, undefined);
 		this.loader?.stop();
 	}
@@ -193,6 +194,7 @@ export default (pi: ExtensionAPI) => {
 		}
 
 		generating = true;
+		// oxlint-disable-next-line promise/catch-or-return,promise/prefer-await-to-then,typescript/no-floating-promises
 		generateSessionName(pi, ctx, entries).finally(
 			() => (generating = false),
 		);
@@ -200,6 +202,7 @@ export default (pi: ExtensionAPI) => {
 
 	pi.registerCommand('rename', {
 		description: 'Set or generate the session name',
+		// oxlint-disable-next-line typescript/require-await
 		async handler(args, ctx) {
 			const name = args.trim();
 
@@ -219,10 +222,12 @@ export default (pi: ExtensionAPI) => {
 			}
 
 			generating = true;
+			// oxlint-disable-next-line promise/catch-or-return,typescript/no-floating-promises
 			generateSessionName(
 				pi,
 				ctx,
 				ctx.sessionManager.getEntries(),
+				// oxlint-disable-next-line promise/prefer-await-to-then
 			).finally(() => (generating = false));
 		},
 	});

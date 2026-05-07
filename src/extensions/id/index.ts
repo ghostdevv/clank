@@ -4,6 +4,7 @@ import type { ExtensionAPI } from '@mariozechner/pi-coding-agent';
 export default (pi: ExtensionAPI) => {
 	pi.registerCommand('id', {
 		description: 'Return the session id',
+		// oxlint-disable-next-line typescript/require-await
 		async handler(_args, ctx) {
 			ctx.ui.notify(
 				`Session id: ${ctx.sessionManager.getSessionId()}`,

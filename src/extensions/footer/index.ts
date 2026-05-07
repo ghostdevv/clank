@@ -14,6 +14,7 @@ const numberIntl = new Intl.NumberFormat();
 
 function fmt(number?: number | null, variant: 'n' | 'u' | 'p' = 'n') {
 	if (variant === 'u' && number) {
+		// oxlint-disable-next-line unicorn/prefer-math-trunc,unicorn/prefer-modern-math-apis
 		const len = (Math.log(number) * Math.LOG10E + 1) | 0;
 		if (len < 4) return number.toFixed(1);
 		return `${(number / 1000).toFixed(1)}k`;
@@ -43,7 +44,6 @@ function getUsage(ctx: ExtensionContext) {
 	}
 
 	const usage = ctx.getContextUsage();
-	usage?.tokens;
 
 	return {
 		input,
@@ -61,6 +61,7 @@ class Footer implements Component {
 		private readonly ctx: ExtensionContext,
 	) {}
 
+	// oxlint-disable-next-line no-empty-function
 	invalidate() {}
 
 	render(width: number): string[] {
@@ -93,6 +94,7 @@ class Footer implements Component {
 		}
 
 		if (usage.cost) {
+			// oxlint-disable-next-line typescript/no-unsafe-argument
 			const sub = model && this.ctx.modelRegistry.isUsingOAuth(model);
 			// prettier-ignore
 			right += theme.fg('dim', ` $${fmt(usage.cost)}${sub ? ' (sub)' : ''}`);

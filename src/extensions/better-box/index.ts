@@ -9,11 +9,11 @@ export function paintBackground(line: string, width: number, theme: Theme) {
 	const visLen = visibleWidth(line);
 	const padNeeded = Math.max(0, width - visLen);
 	const padded = line + ' '.repeat(padNeeded);
-	const sentinel = '\x00';
+	const sentinel = '\u0000';
 	const [bgOpen, bgClose] = theme
 		.bg('customMessageBg', sentinel)
 		.split(sentinel);
-	const fullReset = '\x1b[0m';
+	const fullReset = '\u001B[0m';
 	let safeContent = padded.replaceAll(bgClose, `${bgClose}${bgOpen}`);
 	if (bgClose !== fullReset) {
 		safeContent = safeContent.replaceAll(
