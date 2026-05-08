@@ -1,9 +1,9 @@
-import { Box, visibleWidth } from '@mariozechner/pi-tui';
+import { Box, visibleWidth } from '@earendil-works/pi-tui';
 import type {
 	ExtensionContext,
 	ExtensionAPI,
 	Theme,
-} from '@mariozechner/pi-coding-agent';
+} from '@earendil-works/pi-coding-agent';
 
 export function paintBackground(line: string, width: number, theme: Theme) {
 	const visLen = visibleWidth(line);

@@ -1,4 +1,4 @@
-import { Loader, Text } from '@mariozechner/pi-tui';
+import { Loader, Text } from '@earendil-works/pi-tui';
 import { randomSpinner } from '../../spinners';
 import { generate } from '../../generate';
 import { styleText } from 'node:util';
@@ -8,7 +8,7 @@ import type {
 	ExtensionContext,
 	SessionEntry,
 	ExtensionAPI,
-} from '@mariozechner/pi-coding-agent';
+} from '@earendil-works/pi-coding-agent';
 
 const SESSION_NAME_ENTRY_TYPE = 'clank::session-name';
 const STATUS_WIDGET_ID = 'clank::session-name-status';

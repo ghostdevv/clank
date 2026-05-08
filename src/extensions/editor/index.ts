@@ -5,13 +5,13 @@ import {
 	type ExtensionContext,
 	type ExtensionAPI,
 	CustomEditor,
-} from '@mariozechner/pi-coding-agent';
+} from '@earendil-works/pi-coding-agent';
 import {
 	type EditorOptions,
 	type EditorTheme,
 	getKeybindings,
 	type TUI,
-} from '@mariozechner/pi-tui';
+} from '@earendil-works/pi-tui';
 
 class Editor extends CustomEditor {
 	constructor(

@@ -5,7 +5,7 @@ import dedent from 'dedent';
 import type {
 	ExtensionContext,
 	ExtensionAPI,
-} from '@mariozechner/pi-coding-agent';
+} from '@earendil-works/pi-coding-agent';
 
 function exitMessage(ctx: ExtensionContext) {
 	const name = ctx.sessionManager.getSessionName();

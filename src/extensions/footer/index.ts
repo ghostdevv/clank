@@ -3,12 +3,12 @@ import type {
 	ReadonlyFooterDataProvider,
 	ExtensionContext,
 	ExtensionAPI,
-} from '@mariozechner/pi-coding-agent';
+} from '@earendil-works/pi-coding-agent';
 import {
 	truncateToWidth,
 	type Component,
 	visibleWidth,
-} from '@mariozechner/pi-tui';
+} from '@earendil-works/pi-tui';
 
 const numberIntl = new Intl.NumberFormat();
 

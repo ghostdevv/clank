@@ -5,7 +5,7 @@ import {
 	type AgentToolResult,
 	type ExtensionAPI,
 	defineTool,
-} from '@mariozechner/pi-coding-agent';
+} from '@earendil-works/pi-coding-agent';
 
 type TextType = 'text' | 'markdown' | 'json';
 

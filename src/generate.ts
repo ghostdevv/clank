@@ -1,10 +1,10 @@
-import type { ExtensionContext } from '@mariozechner/pi-coding-agent';
+import type { ExtensionContext } from '@earendil-works/pi-coding-agent';
 import {
 	type Message,
 	type Model,
 	complete,
 	type Api,
-} from '@mariozechner/pi-ai';
+} from '@earendil-works/pi-ai';
 
 export async function generate<T extends Api>(
 	ctx: ExtensionContext,

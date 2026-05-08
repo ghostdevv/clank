@@ -1,4 +1,4 @@
-import type { ExtensionAPI } from '@mariozechner/pi-coding-agent';
+import type { ExtensionAPI } from '@earendil-works/pi-coding-agent';
 
 // oxlint-disable-next-line import/no-anonymous-default-export
 export default (pi: ExtensionAPI) => {
