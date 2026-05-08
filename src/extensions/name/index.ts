@@ -57,12 +57,15 @@ interface NameEntryData {
 }
 
 function appendSessionNameMessage(pi: ExtensionAPI, details: NameEntryData) {
-	pi.sendMessage({
-		customType: SESSION_NAME_ENTRY_TYPE,
-		content: `Session name changed to ${details.name}`,
-		display: true,
-		details,
-	});
+	pi.sendMessage(
+		{
+			customType: SESSION_NAME_ENTRY_TYPE,
+			content: `Session name changed to ${details.name}`,
+			display: true,
+			details,
+		},
+		{ triggerTurn: false, deliverAs: 'followUp' },
+	);
 }
 
 function hasSessionNameEntry(entries: SessionEntry[]) {
@@ -181,6 +184,17 @@ export default (pi: ExtensionAPI) => {
 			return new Text(styleText('dim', text), 1, 1);
 		},
 	);
+
+	pi.on('context', (event) => {
+		return {
+			messages: event.messages.filter((m) => {
+				return !(
+					m.role === 'custom' &&
+					m.customType === SESSION_NAME_ENTRY_TYPE
+				);
+			}),
+		};
+	});
 
 	let generating = false;
 
