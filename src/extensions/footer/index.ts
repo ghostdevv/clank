@@ -100,6 +100,10 @@ class Footer implements Component {
 			right += theme.fg('dim', ` $${fmt(usage.cost)}${sub ? ' (sub)' : ''}`);
 		}
 
+		if (right.endsWith(' ·')) {
+			right = right.slice(0, -2);
+		}
+
 		const ellipsis = theme.fg('dim', '...');
 		const lines: string[] = [];
 
